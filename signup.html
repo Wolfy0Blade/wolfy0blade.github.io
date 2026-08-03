@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyVideo - Criar conta</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="logo">
+        <span>▶</span> MyVideo
+    </div>
+
+    <h1>Criar conta</h1>
+    <p>Entre no mundo do MyVideo</p>
+
+    <input id="email" type="email" placeholder="Email">
+
+    <input id="password" type="password" placeholder="Senha">
+
+    <button onclick="signup()">Criar conta</button>
+
+    <p id="message"></p>
+
+    <div class="switch">
+        Já tem uma conta?
+        <a href="login.html">Entrar</a>
+    </div>
+
+</div>
+
+
+<script>
+
+const supabaseUrl = "SEU_SUPABASE_URL";
+const supabaseKey = "SEU_SUPABASE_ANON_KEY";
+
+const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+
+async function signup(){
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const message = document.getElementById("message");
+
+
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password
+    });
+
+
+    if(error){
+
+        message.innerText = error.message;
+        message.style.color = "#ff5555";
+
+    } else {
+
+        message.innerText = 
+        "Conta criada! Verifique seu email.";
+
+        message.style.color = "#00aaff";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+  </html>
